@@ -1,5 +1,6 @@
 package engine;
 
+import graphic.Matrix4f;
 import math.Vector3f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -16,12 +17,14 @@ public class Window {
     private long time;
     private Input input;
     private Vector3f backgroundColor;
+    private Matrix4f projection;
 
     public Window(int width, int height, String title) {
         this.height = height;
         this.width = width;
         this.title = title;
-
+        projection = Matrix4f.projection(70.0f, (float) width / (float) height, 0.1f, 1000.0f);
+        projection.printMatrix();
     }
 
     public void createWindow()
@@ -47,7 +50,7 @@ public class Window {
 
         GLFW.glfwSetKeyCallback(window, input.getKeyboardCallback());
         GLFW.glfwSetCursorPosCallback(window, input.getMouseMoveCallback());
-        GLFW.glfwSetMouseButtonCallback(window, input.getMouseButtonCallback());
+        GLFW.glfwSetMouseButtonCallback(window, input.getMouseButtonsCallback());
         GLFW.glfwSetScrollCallback(window, input.getMouseScrollCallback());
 
         GLFW.glfwShowWindow(window);
@@ -73,6 +76,11 @@ public class Window {
             frames = 0;
         }
     }
+
+    public void mouseState(boolean lock) {
+        GLFW.glfwSetInputMode(window, GLFW_CURSOR, lock ? GLFW_CURSOR_DISABLED:GLFW_CURSOR_NORMAL);
+    }
+
     public void swapBuffers() {
         GLFW.glfwSwapBuffers(window);
     }
@@ -83,5 +91,9 @@ public class Window {
 
     public void setBackgroundColor(Vector3f color) {
         this.backgroundColor = color;
+    }
+
+    public Matrix4f getProjectionMatrix() {
+        return projection;
     }
 }
