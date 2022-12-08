@@ -15,16 +15,19 @@ public class Camera {
     }
 
     public void update() {
+
         newMouseX = Input.getMouseX();
         newMouseY = Input.getMouseY();
 
         float x = (float) Math.sin(Math.toRadians(rotation.getY())) * moveSpeed;
         float z = (float) Math.cos(Math.toRadians(rotation.getY())) * moveSpeed;
 
+
         if (Input.isKeyDown(GLFW.GLFW_KEY_A)) position = Vector3f.add(position, new Vector3f(-z, 0, x));
         if (Input.isKeyDown(GLFW.GLFW_KEY_D)) position = Vector3f.add(position, new Vector3f(z, 0, -x));
         if (Input.isKeyDown(GLFW.GLFW_KEY_W)) position = Vector3f.add(position, new Vector3f(-x, 0, -z));
         if (Input.isKeyDown(GLFW.GLFW_KEY_S)) position = Vector3f.add(position, new Vector3f(x, 0, z));
+
         if (Input.isKeyDown(GLFW.GLFW_KEY_SPACE)) position = Vector3f.add(position, new Vector3f(0, moveSpeed, 0));
         if (Input.isKeyDown(GLFW.GLFW_KEY_LEFT_SHIFT)) position = Vector3f.add(position, new Vector3f(0, -moveSpeed, 0));
 
@@ -35,6 +38,7 @@ public class Camera {
 
         oldMouseX = newMouseX;
         oldMouseY = newMouseY;
+
     }
 
     public Vector3f getPosition() {

@@ -24,7 +24,13 @@ public class Window {
         this.width = width;
         this.title = title;
         projection = Matrix4f.projection(70.0f, (float) width / (float) height, 0.1f, 1000.0f);
-        projection.printMatrix();
+
+
+        float maxX = 1.0f - 0.005f;
+        float minX = 0.005f;
+        float maxY = maxX / (width/height);
+        float minY = minX / (width/height);
+
     }
 
     public void createWindow()

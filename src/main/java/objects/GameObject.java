@@ -15,10 +15,7 @@ public class GameObject {
     }
 
     public void update() {
-        rotation.setX(rotation.getX() + 0.5f);
-        rotation.setZ(rotation.getZ() + 0.5f);
-        rotation.setX(rotation.getX() + 0.5f);
-
+        position.setY(position.getY() - 0.01f);
     }
 
     public Vector3f getPosition() {
